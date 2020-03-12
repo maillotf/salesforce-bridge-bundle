@@ -1,0 +1,66 @@
+services:
+    salesforce.http.client:
+        class: GenesisGlobal\Salesforce\Http\HttpfulClient
+
+    salesforce.content_parser:
+        class: MaillotF\Salesforce\SalesforceBridgeBundle\Service\ContentParser
+
+# AUTHENTICATION
+    salesforce.authentication.url_generator:
+        class: GenesisGlobal\Salesforce\Authentication\SalesforceAuthenticatorUrlGenerator
+        arguments: [ "%salesforce.authentication.endpoint%" ]
+
+    salesforce.authentication.credentials_keeper:
+        class: MaillotF\Salesforce\SalesforceBridgeBundle\Authentication\UsernamePasswordCredentials
+        arguments:
+            - "%salesforce.authentication.username%"
+            - "%salesforce.authentication.password%"
+            - "%salesforce.authentication.client_id%"
+            - "%salesforce.authentication.client_secret%"
+            - "%salesforce.authentication.security_token%"
+
+    salesforce.authentication.callback:
+        class: GenesisGlobal\Salesforce\Authentication\SalesforceAuthenticationCallback
+
+    salesforce.authentication.authenticator:
+        class: GenesisGlobal\Salesforce\Authentication\SalesforceUsernamePasswordAuthenticator
+        arguments:
+            - "@salesforce.http.client"
+            - "@salesforce.authentication.url_generator"
+            - "@salesforce.authentication.credentials_keeper"
+            - "@salesforce.authentication.callback"
+
+# API
+    salesforce.client.url_generator:
+        class: GenesisGlobal\Salesforce\Client\SalesforceUrlGenerator
+        arguments:
+            - "%salesforce.rest.endpoint%"
+            - "%salesforce.rest.version%"
+
+    salesforce.client.factory:
+        class: GenesisGlobal\Salesforce\Client\SalesforceClientFactory
+
+    salesforce.client:
+        class: GenesisGlobal\Salesforce\Client\SalesforceClient
+        arguments:
+            - "@salesforce.http.client"
+            - "@salesforce.client.url_generator"
+            - "@salesforce.authentication.authenticator"
+            - "@salesforce.response_creator"
+
+    salesforce.sobject_creator:
+        class: MaillotF\Salesforce\SalesforceBridgeBundle\Creator\SobjectCreator
+
+    salesforce.response_creator:
+        class: GenesisGlobal\Salesforce\Http\Response\ResponseCreator
+        public: false
+
+    salesforce.query_builder:
+        class: MaillotF\Salesforce\SalesforceBridgeBundle\Service\QueryBuilder
+
+    salesforce.service:
+        class: MaillotF\Salesforce\SalesforceBridgeBundle\Service\SalesforceService
+        arguments:
+            - "@salesforce.client"
+            - "@salesforce.content_parser"
+            - "@salesforce.query_builder"
