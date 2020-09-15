@@ -4,6 +4,8 @@ Symfony bundle for Salesforce REST client which is base on username,password aut
 
 ## Required configuration
 
+Compliant with symphony 4 and php7
+
 ### Modify framework.yaml
 ```yaml
 salesforce:
