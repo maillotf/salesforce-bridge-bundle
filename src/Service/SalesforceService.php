@@ -163,6 +163,21 @@ class SalesforceService implements SalesforceServiceInterface
         return $response;
 	}
 	
+	/**
+	 * 
+	 * @return array [name => label]
+	 */
+	public function getCreatableSobjectList(): array
+	{
+		$response = $this->getSobjectList();
+		$sobjects = $response->getContent()->sobjects;
+		$creatable = array();
+		foreach ($sobjects as $sobject)
+			if ($sobject->createable == true)
+				$creatable[] = array($sobject->name => $sobject->label);
+		return ($creatable);
+	}
+	
     /**
      * @param SobjectInterface $sObject
      * @return Response
