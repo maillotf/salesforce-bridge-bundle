@@ -12,9 +12,9 @@
 	"minimum-stability": "dev",
     "require": {
         "php": "^7.0",
-        "symfony/http-kernel": "^3.2|^4.0|^4.1",
-		"symfony/config": "^3.2|^4.0|^4.1",
-		"symfony/dependency-injection": "^3.2|^4.0|^4.1",
+        "symfony/http-kernel": "^3.2|^4.0|^4.1|^5.1",
+		"symfony/config": "^3.2|^4.0|^4.1|^5.1",
+		"symfony/dependency-injection": "^3.2|^4.0|^4.1|^5.1",
 		"genesis-global/salesforce": "^1.1.9"
     },
     "require-dev": {
