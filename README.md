@@ -64,7 +64,7 @@ class exampleController extends AbstractController
 }
 ```
 
-[ico-license]: https://img.shields.io/github/license/maillotf/salesforce-bridge-bundle.svg?style=flat-square
+[ico-license]: https://img.shields.io/github/license/maillotf/salesforce-bridge-bundle.svg
 [ico-version-stable]: https://img.shields.io/packagist/v/maillotf/salesforce-bridge-bundle
 [ico-php-version]: https://img.shields.io/packagist/php-v/maillotf/salesforce-bridge-bundle
 
